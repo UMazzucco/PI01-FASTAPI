@@ -1,4 +1,4 @@
-#Razer PI01 API Uriel Mazzucco#
+#Razer PI01 API Uriel Mazzucco
 
 import json
 import pandas as pd                              #Importamos lo necesario
@@ -18,7 +18,6 @@ races = pd.read_csv(data_path + 'races.csv')                               #Impo
 dict_aux = races.to_dict('records')
 datasets['races']=dict_aux
 
-
 with open(data_path+'constructors.json', encoding = 'utf-8') as file:
     dict_aux = [json.loads(line) for line in file]
     datasets['constructors']= dict_aux
@@ -36,6 +35,12 @@ with open(data_path+'results.json', encoding = 'utf-8') as file:
     datasets['results']= dict_aux
 
 results = pd.DataFrame.from_dict(datasets['results'])                      #Importamos Resultados
+
+circuits.drop(['lat','lng','alt'],axis=1,inplace=True)
+drivers.drop(['number','code','dob'],axis=1,inplace=True)
+races.drop(['time','date'],axis=1,inplace=True)
+lista = ['number','grid','position','positionText','laps','time','milliseconds','fastestLap','fastestLapTime','fastestLapSpeed','statusId']
+results.drop(lista,axis=1,inplace=True)                         #Eliminamos columnas que no necesitamos
 
 
 @app.get("/")                                                   #Mensaje de bienvenida
@@ -55,11 +60,12 @@ def user_guide():
     '/most-raced-year':'Año con más carreras',
     '/most-first-place':'Piloto con mayor cantidad de primeros puestos',
     '/most-raced-circuit':'Nombre del circuito más corrido',
-    '/most-points':'Piloto con mayor cantidad de puntos totales cuyo constructor sea estadounidense o británico',
+    '/most-points':'Piloto con mayor cantidad de puntos totales con un constructor estadounidense o británico',
     '/about':'Qué es Razer',
     '/datasets':'Datasets con los que trabajamos',
     '/datasets/nombre-dataset':'Devuelve el dataset nombre-dataset que queremos consultar, puede ser cualquiera de los ingestados',
-    '/docs':'Documentación realizada por FastAPI'
+    '/docs':'Documentación realizada por FastAPI',
+    '/':'Bienvenida'
     }    
     return usr_guide
 
