@@ -1,17 +1,14 @@
-#Razer PI01 API#
+#Razer PI01 API Uriel Mazzucco#
 
 import json
 import pandas as pd                              #Importamos lo necesario
 from fastapi import FastAPI
 
-
 app = FastAPI()                                  #Creamos la API
 
-data_path = 'PI01_DATA02/Datasets/'              #Establecemos la ubicación de los datasets
+data_path = 'Datasets/'              #Establecemos la ubicación de los datasets
 
 datasets = {}                                    #Creamos un diccionario con la información
-
-
 
 circuits = pd.read_csv(data_path + 'circuits.csv')                         #Importamos Circuitos
 dict_aux = circuits.to_dict('records')
@@ -43,23 +40,31 @@ results = pd.DataFrame.from_dict(datasets['results'])                      #Impo
 
 @app.get("/")                                                   #Mensaje de bienvenida
 def home():
-    welcome_msg = 'Bienvenid@ a Razer'
+    welcome_msg = {'Te damos la bienvenida a Razer':'Para referencias consultar /user-guide'}
     return welcome_msg
 
 
 @app.get('/about')                                              #Breve reseña de la API
 def about():
-    about_razer = {
-    'Este es el proyecto 01 de Uriel Mazzucco':'Que nos dirá \n',
-    'Año con más carreras':'/most-raced-year',
-    'Piloto con mayor cantidad de primeros puestos':'/most-first-place',
-    'Nombre del circuito más corrido':'/most-raced-circuit',
-    'Piloto con mayor cantidad de puntos totales cuyo constructor sea estadounidense o británico':'/most-points'
+    about_msg = 'Razer es el PI 01 de Uriel Mazzucco'
+    return about_msg
+
+@app.get('/user-guide')                                         #Guía del Usuario
+def user_guide():
+    usr_guide = {
+    '/most-raced-year':'Año con más carreras',
+    '/most-first-place':'Piloto con mayor cantidad de primeros puestos',
+    '/most-raced-circuit':'Nombre del circuito más corrido',
+    '/most-points':'Piloto con mayor cantidad de puntos totales cuyo constructor sea estadounidense o británico',
+    '/about':'Qué es Razer',
+    '/datasets':'Datasets con los que trabajamos',
+    '/datasets/nombre-dataset':'Devuelve el dataset nombre-dataset que queremos consultar, puede ser cualquiera de los ingestados',
+    '/docs':'Documentación realizada por FastAPI'
     }    
-    return about_razer
+    return usr_guide
 
 
-@app.get('/dataset/{data}')                                     #Obtenemos un dataset
+@app.get('/datasets/{data}')                                    #Obtenemos un dataset
 def get_dataset(data:str):
     return datasets[data]
 
@@ -98,10 +103,8 @@ def get_most_points():
     carreras = results.loc[(results['constructorId'].isin(id_constructores))]
     most_points_id = carreras.groupby('driverId').sum('points').sort_values('points',ascending=False).index[0]
     piloto = str(drivers[drivers['driverId']==most_points_id]['name'].values)
-    part =piloto.strip('[').strip(']').strip('{').strip('}').replace("forename",'').replace("surname",'')
-    best_pil = part.replace("'",'').replace(":",'').replace(" ",'').replace(",",' ')
+    best_pil = piloto.replace("[{'forename': '","").replace("', 'surname': '"," ").replace("'}]","")
     return {'El piloto de fabricante estadounidense o británico con más puntos es:':best_pil}
-
 
 
 #uvicorn razer:app --reload launches the api
