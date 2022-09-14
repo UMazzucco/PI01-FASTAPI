@@ -113,5 +113,5 @@ def get_most_points():
     return {'El piloto de fabricante estadounidense o británico con más puntos es:':best_pil}
 
 
-#uvicorn razer:app --reload launches the api
+#uvicorn main:app --reload launches the api
 #api on http://127.0.0.1:8000
