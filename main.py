@@ -45,27 +45,28 @@ results.drop(lista,axis=1,inplace=True)                         #Eliminamos colu
 
 @app.get("/")                                                   #Mensaje de bienvenida
 def home():
-    welcome_msg = {'Te damos la bienvenida a Razer':'Para referencias consultar /user-guide'}
+    welcome_msg = {'Te damos la bienvenida a Razer':'Prueba agregando */user-guide* (sin asteriscos) en la barra de direcciones'}
     return welcome_msg
 
 
 @app.get('/about')                                              #Breve reseña de la API
 def about():
-    about_msg = 'Razer es el PI 01 de Uriel Mazzucco'
+    about_msg = 'Razer es el PI 01 de Uriel Mazzucco para Henry'
     return about_msg
 
 @app.get('/user-guide')                                         #Guía del Usuario
 def user_guide():
     usr_guide = {
-    '/most-raced-year':'Año con más carreras',
-    '/most-first-place':'Piloto con mayor cantidad de primeros puestos',
+    'Código':'Consulta',
+    '/most-raced-year':'Año en que se realizaron más carreras carreras',
+    '/most-first-place':'Piloto que salió en primer lugar más veces',
     '/most-raced-circuit':'Nombre del circuito más corrido',
-    '/most-points':'Piloto con mayor cantidad de puntos totales con un constructor estadounidense o británico',
-    '/about':'Qué es Razer',
-    '/datasets':'Datasets con los que trabajamos',
-    '/datasets/nombre-dataset':'Devuelve el dataset nombre-dataset que queremos consultar, puede ser cualquiera de los ingestados',
-    '/docs':'Documentación realizada por FastAPI',
-    '/':'Bienvenida'
+    '/most-points':'Piloto con mayor cantidad de puntos totales, utilizando un constructor estadounidense o británico',
+    '/about':'Sobre Razer',
+    '/datasets':'Lista de datasets con los que hemos trabajado (en bruto)',
+    '/datasets/data':'Devuelve el dataset *data* (utilizar sin asteriscos) que queremos consultar',
+    '/docs':'Documentación realizada automáticamente por FastAPI',
+    '/':'Mensaje de Bienvenida'
     }    
     return usr_guide
 
@@ -84,7 +85,7 @@ def get_datasets_stat():
 def get_most_raced_year():
     sorted_years = races.groupby('year').count().sort_values('raceId',ascending=False)
     year = int(sorted_years.index[0])
-    return {'El año con más carreras es:':year}
+    return {'El año en que se realizaron más carreras carreras es':year}
 
 @app.get('/most-raced-circuit')                                 #Obtenemos el circuito con más carreras
 def get_most_rc():
@@ -92,7 +93,7 @@ def get_most_rc():
     most_raced_circuit_id = sorted_circuits.index[0]
     aux = str(circuits.loc[circuits['circuitId']==most_raced_circuit_id]['name'].values)
     most_rc = aux.strip('[').strip(']').strip("'")
-    return {'El circuito con más carreras es:':most_rc}
+    return {'El circuito donde se realizaron más carreras es':most_rc}
 
 @app.get('/most-first-place')                                   #Obtenemos el piloto que más veces salió 1ro
 def get_best_driver():
@@ -101,17 +102,19 @@ def get_best_driver():
     driver = str(drivers[drivers['driverId']==1]['name'].values)
     part = driver.strip('[').strip(']').strip('{').strip('}').replace("forename",'').replace("surname",'')
     best_driver = part.replace("'",'').replace(":",'').replace(" ",'').replace(",",' ')
-    return {'El piloto que más veces salió en primer puesto es:':best_driver}
+    return {'El piloto que salió en primer lugar más veces es:':best_driver}
 
 @app.get('/most-points')                                        #Obtenemos el piloto que más veces salió 1ro
 def get_most_points():
     id_constructores = constructors.loc[(constructors['nationality']=='British') | (constructors['nationality']=='American')]['constructorId'].to_list()
     carreras = results.loc[(results['constructorId'].isin(id_constructores))]
-    most_points_id = carreras.groupby('driverId').sum('points').sort_values('points',ascending=False).index[0]
+    sorted = carreras.groupby('driverId').sum('points').sort_values('points',ascending=False)
+    most_points_id = sorted.index[0]
+    points = int(sorted.iloc[0]['points'])
     piloto = str(drivers[drivers['driverId']==most_points_id]['name'].values)
     best_pil = piloto.replace("[{'forename': '","").replace("', 'surname': '"," ").replace("'}]","")
-    return {'El piloto de fabricante estadounidense o británico con más puntos es:':best_pil}
+    return {'El piloto con mayor cantidad de puntos totales, utilizando un constructor estadounidense o británico es':best_pil}
 
 
-#uvicorn main:app --reload launches the api
+#uvicorn main:app --reload on terminal launches the api
 #api on http://127.0.0.1:8000
