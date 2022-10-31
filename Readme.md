@@ -12,7 +12,7 @@ Razer es el proyecto individual N° 1 para SoyHenry. Se trata del desarrollo de 
 
 ### Cvser.py
 
-Este pequeño código convierte en archivos .csv los datasets en .json para su posterior utilización. En caso de no tener lista la carpeta 'csvs' debe ejecutarse antes.
+Este pequeño código convierte en archivos .csv los datasets en .json para su posterior utilización. Debe ejecutarse al principio.
 
 ### Main.py
 
