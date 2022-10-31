@@ -6,7 +6,7 @@ from fastapi import FastAPI
 
 app = FastAPI()                                  #Creamos la API
 
-data_path = 'Datasets/'              #Establecemos la ubicación de los datasets
+data_path = 'csvs/'              #Establecemos la ubicación de los datasets
 
 datasets = {}                                    #Creamos un diccionario con la información
 
@@ -18,23 +18,17 @@ races = pd.read_csv(data_path + 'races.csv')                               #Impo
 dict_aux = races.to_dict('records')
 datasets['races']=dict_aux
 
-with open(data_path+'constructors.json', encoding = 'utf-8') as file:
-    dict_aux = [json.loads(line) for line in file]
-    datasets['constructors']= dict_aux
+constructors = pd.read_csv(data_path + 'constructors.csv')                 #Importamos Constructores
+dict_aux = constructors.to_dict('records')
+datasets['constructors']=dict_aux
 
-constructors = pd.DataFrame.from_dict(datasets['constructors'])            #Importamos Constructores
+drivers = pd.read_csv(data_path + 'drivers.csv')                           #Importamos Conductores
+dict_aux = drivers.to_dict('records')
+datasets['drivers']=dict_aux
 
-with open(data_path+'drivers.json', encoding = 'utf-8') as file:
-    dict_aux = [json.loads(line) for line in file]
-    datasets['drivers']= dict_aux
-
-drivers = pd.DataFrame.from_dict(datasets['drivers'])                      #Importamos Conductores
-
-with open(data_path+'results.json', encoding = 'utf-8') as file:
-    dict_aux = [json.loads(line) for line in file]
-    datasets['results']= dict_aux
-
-results = pd.DataFrame.from_dict(datasets['results'])                      #Importamos Resultados
+results = pd.read_csv(data_path + 'results.csv')                           #Importamos Resultados
+dict_aux = results.to_dict('records')
+datasets['results']=dict_aux
 
 circuits.drop(['lat','lng','alt'],axis=1,inplace=True)
 drivers.drop(['number','code','dob'],axis=1,inplace=True)
