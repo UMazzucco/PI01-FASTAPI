@@ -26,6 +26,14 @@ Contiene todos los datasets brindados por Henry, aunque algunos no se utilizaron
 
 Contiene en formato .csv los datasets utilizados.
 
+### DER
+
+#### Contamos con el siguiente modelo
+
+<img src='https://user-images.githubusercontent.com/103452945/235523271-4e2120de-6f59-4014-949e-e9e8dafbff94.png'>
+
+Como podemos ver, contamos con diversa información como metadata de carreras, constructores, corredores, resultados, tiempos de vueltas, etc.
+
 ### ETL
 
 Los datos ya estaban limpios, por lo que el proyecto se centró en el armado de la API y las conexiones entre tablas.
