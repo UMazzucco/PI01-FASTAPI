@@ -2,7 +2,7 @@
 
 ## About 
 
-Razer mi Proyecto Individual N°1 para la carrera de Data Science en Henry. Se trata del desarrollo de una API con el framework FastAPI, que realiza determinadas consultas sobre datasets de carreras de Fórmula 1, brindados por los instructores. Se realizó utilizando Pandas para el procesamiento y las consultas, y se deployó originalmente en Heroku.
+Razer mi Proyecto Individual N°1 para la carrera de Data Science en Henry. Se trata del desarrollo de una API con el framework FastAPI, que realiza determinadas consultas sobre datasets de carreras de Fórmula 1, brindados por los instructores. Se realizó utilizando Pandas para el procesamiento y las consultas, y se deployó originalmente en Heroku. Sin embargo la API no se encuentra actualmente en funcionamiento, debido a la finalización del servicio gratuito de Heroku en noviembre del mes pasado.
 
 <img src='https://user-images.githubusercontent.com/103452945/235519640-cbd7130f-f0ac-4ef1-97d7-a2be03b6bbcc.png' width ='180' height ='60'> <img src="https://user-images.githubusercontent.com/103452945/235471298-6bc2199c-3ab0-47cc-b044-ef576389d387.png"  width="60" height="60">
 
