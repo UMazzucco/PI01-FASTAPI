@@ -1,12 +1,10 @@
-# Razer
+# Razer <img src='https://user-images.githubusercontent.com/103452945/235469235-3c78abd3-dfd3-4755-bcc2-192b8fdfe4b9.png' width='75' height='30'>
 
-## About
+## About 
 
-Razer es el proyecto individual N° 1 para SoyHenry. Se trata del desarrollo de una API con el framework FastAPI, que realiza determinadas consultas sobre datasets brindados previamente. La temática es de carreras de Fórmula 1, y posteriormenta se deployará en un servidor de Heroku. Para este caso utilizaremos Pandas.
+Razer mi Proyecto Individual N°1 para la carrera de Data Science en Henry. Se trata del desarrollo de una API con el framework FastAPI, que realiza determinadas consultas sobre datasets de carreras de Fórmula 1, brindados por los instructores. Se realizó utilizando Pandas para el procesamiento y las consultas, y se deployó originalmente en Heroku.
 
-## Enlace
-
-<<https://razer-umazz.herokuapp.com/user-guide>>
+<img src='https://user-images.githubusercontent.com/103452945/235519640-cbd7130f-f0ac-4ef1-97d7-a2be03b6bbcc.png' width ='180' height ='60'> <img src="https://user-images.githubusercontent.com/103452945/235471298-6bc2199c-3ab0-47cc-b044-ef576389d387.png"  width="60" height="60">
 
 ## Códigos
 
@@ -22,12 +20,16 @@ Contiene todo lo necesario para la ejecución de la API.
 
 ### Original_data
 
-Contiene todos los datasets brindados por Henry, aunque algunos no serán utilizados.
+Contiene todos los datasets brindados por Henry, aunque algunos no se utilizaron.
 
 ### Csvs
 
-COntiene en formato .csv los datasets que utilizaremos.
+Contiene en formato .csv los datasets utilizados.
 
 ### ETL
 
-Los datos ya están limpios, por lo que nos dedicaremos al armado de la API y las conexiones entre tablas.
+Los datos ya estaban limpios, por lo que el proyecto se centró en el armado de la API y las conexiones entre tablas.
+
+## Video Demostración
+
+[<img src='https://user-images.githubusercontent.com/103452945/235522052-47ea5867-37bb-4c3b-956e-937a04267d2e.png' width='1000' height='500'>](https://youtu.be/_H3DsVWwjfs)
